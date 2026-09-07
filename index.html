@@ -58,6 +58,38 @@ h1, h2, h3 { margin: 0; }
   letter-spacing: 0.5px;
 }
 
+.gender-nav {
+  display: flex;
+  gap: 22px;
+}
+.gender-link {
+  background: none;
+  border: none;
+  color: var(--ink-soft);
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 4px 0;
+  position: relative;
+}
+.gender-link.is-active {
+  color: var(--ink);
+}
+.gender-link.is-active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -4px;
+  height: 2px;
+  background: var(--accent);
+}
+@media (max-width: 640px) {
+  .gender-nav { gap: 14px; }
+  .gender-link { font-size: 13px; }
+}
+
 .cart-toggle {
   background: var(--ink);
   color: #fff;
@@ -394,6 +426,12 @@ h1, h2, h3 { margin: 0; }
 <header class="site-header">
   <div class="header-inner">
     <a href="#" class="logo">Lumina</a>
+    <nav class="gender-nav" id="genderNav">
+      <button class="gender-link is-active" data-gender="todos">Todos</button>
+      <button class="gender-link" data-gender="hombre">Hombre</button>
+      <button class="gender-link" data-gender="mujer">Mujer</button>
+      <button class="gender-link" data-gender="nino">Niños</button>
+    </nav>
     <button class="cart-toggle" id="cartToggle" aria-label="Abrir carrito">
       Carrito <span class="cart-count" id="cartCount">0</span>
     </button>
@@ -465,9 +503,11 @@ h1, h2, h3 { margin: 0; }
 // ============================================================
 //  CATÁLOGO DE PRODUCTOS
 //  Para agregar un zapato nuevo, copia un bloque { ... } y
-//  cambia los datos. "category" debe ser "superstar" o "samba"
-//  (o crea una categoría nueva y agrégala también en index.html
-//  dentro de <div class="filters">).
+//  cambia los datos.
+//  - "category" debe ser "superstar" o "samba" (o crea una nueva
+//    y agrégala también en el HTML dentro de <div class="filters">).
+//  - "gender" debe ser "hombre", "mujer" o "nino" (según a quién
+//    va dirigido el producto — controla el menú de arriba).
 // ============================================================
 
 const PRODUCTS = [
@@ -475,6 +515,7 @@ const PRODUCTS = [
     id: "superstar-adicolor-blanco",
     name: "Superstar Adicolor Blanco",
     category: "superstar",
+    gender: "mujer",
     price: 170000,
     image: "images/superstar-adicolor-blanco.jpg",
     sizes: ["35", "36", "37", "38", "39", "40"],
@@ -484,6 +525,7 @@ const PRODUCTS = [
     id: "samba-cafe-rosa",
     name: "Samba Café Rosa",
     category: "samba",
+    gender: "mujer",
     price: 175000,
     image: "images/samba-cafe-rosa.jpg",
     sizes: ["35", "36", "37", "38", "39", "40"],
@@ -493,6 +535,7 @@ const PRODUCTS = [
     id: "superstar-transparente-gris",
     name: "Superstar Logo Transparente",
     category: "superstar",
+    gender: "mujer",
     price: 170000,
     image: "images/superstar-transparente-gris.jpg",
     sizes: ["35", "36", "37", "38", "39", "40"],
@@ -502,6 +545,7 @@ const PRODUCTS = [
     id: "superstar-adicolor-plata",
     name: "Superstar Adicolor Plata",
     category: "superstar",
+    gender: "mujer",
     price: 170000,
     image: "images/superstar-adicolor-plata.jpg",
     sizes: ["35", "36", "37", "38", "39", "40"],
@@ -511,6 +555,7 @@ const PRODUCTS = [
     id: "superstar-negro-dorado",
     name: "Superstar Negro Dorado",
     category: "superstar",
+    gender: "mujer",
     price: 170000,
     image: "images/superstar-negro-dorado.jpg",
     sizes: ["35", "36", "37", "38", "39", "40"],
@@ -520,6 +565,7 @@ const PRODUCTS = [
     id: "superstar-blanco-clasico",
     name: "Superstar Blanco Clásico",
     category: "superstar",
+    gender: "mujer",
     price: 170000,
     image: "images/superstar-blanco-clasico.jpg",
     sizes: ["35", "36", "37", "38", "39", "40"],
@@ -533,11 +579,12 @@ const PRODUCTS = [
 //  Formato: código de país + número, sin espacios ni "+"
 //  Ejemplo Colombia: "573001234567"
 // ============================================================
-const WHATSAPP_NUMBER = "573004371680";
+const WHATSAPP_NUMBER = "573000000000";
 
 // ---------- Estado ----------
 let cart = JSON.parse(localStorage.getItem("lumina_cart") || "[]");
 let activeFilter = "todos";
+let activeGender = "todos";
 let modalProduct = null;
 
 // ---------- Formato de precio ----------
@@ -550,9 +597,11 @@ function renderProducts() {
   const grid = document.getElementById("productGrid");
   grid.innerHTML = "";
 
-  const list = PRODUCTS.filter(
-    (p) => activeFilter === "todos" || p.category === activeFilter
-  );
+  const list = PRODUCTS.filter((p) => {
+    const matchesCategory = activeFilter === "todos" || p.category === activeFilter;
+    const matchesGender = activeGender === "todos" || p.gender === activeGender;
+    return matchesCategory && matchesGender;
+  });
 
   list.forEach((p) => {
     const card = document.createElement("div");
@@ -577,6 +626,15 @@ document.getElementById("filters").addEventListener("click", (e) => {
   document.querySelectorAll(".filter-chip").forEach((b) => b.classList.remove("is-active"));
   btn.classList.add("is-active");
   activeFilter = btn.dataset.filter;
+  renderProducts();
+});
+
+document.getElementById("genderNav").addEventListener("click", (e) => {
+  const btn = e.target.closest(".gender-link");
+  if (!btn) return;
+  document.querySelectorAll(".gender-link").forEach((b) => b.classList.remove("is-active"));
+  btn.classList.add("is-active");
+  activeGender = btn.dataset.gender;
   renderProducts();
 });
 
@@ -731,7 +789,7 @@ document.getElementById("checkoutBtn").addEventListener("click", () => {
   const total = cart.reduce((sum, i) => sum + i.price * i.qty, 0);
   message += `\nTotal: ${formatPrice(total)}`;
 
-  const url = `https://wa.me/${573004371680}?text=${encodeURIComponent(message)}`;
+  const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
   window.open(url, "_blank");
 });
 
