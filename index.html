@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lumina — Sneakers</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="#" class="logo">Lumina</a>
+    <button class="cart-toggle" id="cartToggle" aria-label="Abrir carrito">
+      Carrito <span class="cart-count" id="cartCount">0</span>
+    </button>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-inner">
+    <h1>Pisa distinto.</h1>
+    <p class="hero-sub">Sneakers seleccionados uno por uno. Pide por WhatsApp, recibe donde estés.</p>
+  </div>
+</section>
+
+<main>
+  <div class="filters" id="filters">
+    <button class="filter-chip is-active" data-filter="todos">Todos</button>
+    <button class="filter-chip" data-filter="superstar">Superstar</button>
+    <button class="filter-chip" data-filter="samba">Samba</button>
+  </div>
+
+  <section class="product-grid" id="productGrid">
+    <!-- Las tarjetas de producto se generan con JavaScript desde products.js -->
+  </section>
+</main>
+
+<footer class="site-footer">
+  <p>Lumina © 2026 — Pedidos coordinados por WhatsApp.</p>
+</footer>
+
+<!-- Panel lateral del carrito -->
+<div class="cart-overlay" id="cartOverlay"></div>
+<aside class="cart-drawer" id="cartDrawer">
+  <div class="cart-drawer-header">
+    <h2>Tu carrito</h2>
+    <button class="cart-close" id="cartClose" aria-label="Cerrar carrito">&times;</button>
+  </div>
+  <div class="cart-items" id="cartItems">
+    <p class="cart-empty" id="cartEmpty">Tu carrito está vacío.</p>
+  </div>
+  <div class="cart-footer">
+    <div class="cart-total-row">
+      <span>Total</span>
+      <span id="cartTotal">$0</span>
+    </div>
+    <button class="btn-whatsapp" id="checkoutBtn">Pedir por WhatsApp</button>
+  </div>
+</aside>
+
+<!-- Modal de selección de talla -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <button class="cart-close" id="modalClose" aria-label="Cerrar">&times;</button>
+    <img id="modalImage" src="" alt="">
+    <h3 id="modalName"></h3>
+    <p class="modal-price" id="modalPrice"></p>
+    <div class="modal-field">
+      <label for="modalSize">Talla</label>
+      <select id="modalSize"></select>
+    </div>
+    <div class="modal-field">
+      <label for="modalColor">Color</label>
+      <select id="modalColor"></select>
+    </div>
+    <button class="btn-add" id="modalAdd">Agregar al carrito</button>
+  </div>
+</div>
+
+<script src="products.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
