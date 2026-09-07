@@ -448,8 +448,10 @@ h1, h2, h3 { margin: 0; }
 <main>
   <div class="filters" id="filters">
     <button class="filter-chip is-active" data-filter="todos">Todos</button>
-    <button class="filter-chip" data-filter="superstar">Superstar</button>
-    <button class="filter-chip" data-filter="samba">Samba</button>
+    <button class="filter-chip" data-filter="adidas">Adidas</button>
+    <button class="filter-chip" data-filter="nike">Nike</button>
+    <button class="filter-chip" data-filter="jordan">Jordan</button>
+    <button class="filter-chip" data-filter="timberland">Timberland</button>
   </div>
 
   <section class="product-grid" id="productGrid">
@@ -504,17 +506,26 @@ h1, h2, h3 { margin: 0; }
 //  CATÁLOGO DE PRODUCTOS
 //  Para agregar un zapato nuevo, copia un bloque { ... } y
 //  cambia los datos.
-//  - "category" debe ser "superstar" o "samba" (o crea una nueva
-//    y agrégala también en el HTML dentro de <div class="filters">).
+//  - "category" es la MARCA: "adidas", "nike", "jordan" o
+//    "timberland" (o crea una nueva y agrégala también en el
+//    HTML dentro de <div class="filters">, y en CATEGORY_LABELS
+//    abajo).
 //  - "gender" debe ser "hombre", "mujer" o "nino" (según a quién
 //    va dirigido el producto — controla el menú de arriba).
 // ============================================================
+
+const CATEGORY_LABELS = {
+  adidas: "Adidas",
+  nike: "Nike",
+  jordan: "Jordan",
+  timberland: "Timberland"
+};
 
 const PRODUCTS = [
   {
     id: "superstar-adicolor-blanco",
     name: "Superstar Adicolor Blanco",
-    category: "superstar",
+    category: "adidas",
     gender: "mujer",
     price: 170000,
     image: "images/superstar-adicolor-blanco.jpg",
@@ -524,7 +535,7 @@ const PRODUCTS = [
   {
     id: "samba-cafe-rosa",
     name: "Samba Café Rosa",
-    category: "samba",
+    category: "adidas",
     gender: "mujer",
     price: 175000,
     image: "images/samba-cafe-rosa.jpg",
@@ -534,7 +545,7 @@ const PRODUCTS = [
   {
     id: "superstar-transparente-gris",
     name: "Superstar Logo Transparente",
-    category: "superstar",
+    category: "adidas",
     gender: "mujer",
     price: 170000,
     image: "images/superstar-transparente-gris.jpg",
@@ -544,7 +555,7 @@ const PRODUCTS = [
   {
     id: "superstar-adicolor-plata",
     name: "Superstar Adicolor Plata",
-    category: "superstar",
+    category: "adidas",
     gender: "mujer",
     price: 170000,
     image: "images/superstar-adicolor-plata.jpg",
@@ -554,7 +565,7 @@ const PRODUCTS = [
   {
     id: "superstar-negro-dorado",
     name: "Superstar Negro Dorado",
-    category: "superstar",
+    category: "adidas",
     gender: "mujer",
     price: 170000,
     image: "images/superstar-negro-dorado.jpg",
@@ -564,12 +575,172 @@ const PRODUCTS = [
   {
     id: "superstar-blanco-clasico",
     name: "Superstar Blanco Clásico",
-    category: "superstar",
+    category: "adidas",
     gender: "mujer",
     price: 170000,
     image: "images/superstar-blanco-clasico.jpg",
     sizes: ["35", "36", "37", "38", "39", "40"],
     colors: ["Blanco/Negro"]
+  },
+  {
+    id: "timberland-botas-mostaza",
+    name: "Timberland Botas Mostaza",
+    category: "timberland",
+    gender: "hombre",
+    price: 220000,
+    image: "images/timberland-botas-mostaza.jpg",
+    sizes: ["38", "39", "40", "41", "42", "43"],
+    colors: ["Mostaza"]
+  },
+  {
+    id: "nike-air-max-pastel",
+    name: "Nike Air Max Pastel",
+    category: "nike",
+    gender: "mujer",
+    price: 180000,
+    image: "images/nike-air-max-pastel.jpg",
+    sizes: ["35", "36", "37", "38", "39", "40"],
+    colors: ["Crema/Coral"]
+  },
+  {
+    id: "sneaker-urbano-negro",
+    name: "Sneaker Urbano Negro",
+    category: "nike",
+    gender: "hombre",
+    price: 180000,
+    image: "images/sneaker-urbano-negro.jpg",
+    sizes: ["38", "39", "40", "41", "42", "43"],
+    colors: ["Negro"]
+  },
+  {
+    id: "nike-af1-blanco-kit",
+    name: "Nike Air Force 1 Blanco",
+    category: "nike",
+    gender: "hombre",
+    price: 180000,
+    image: "images/nike-af1-blanco-kit.jpg",
+    sizes: ["38", "39", "40", "41", "42", "43"],
+    colors: ["Blanco"]
+  },
+  {
+    id: "adidas-zx500-gris-rojo",
+    name: "Adidas ZX 500 Gris/Rojo",
+    category: "adidas",
+    gender: "hombre",
+    price: 150000,
+    image: "images/adidas-zx500-gris-rojo.jpg",
+    sizes: ["38", "39", "40", "41", "42", "43"],
+    colors: ["Gris/Rojo"]
+  },
+  {
+    id: "nike-air-max-90-negro",
+    name: "Nike Air Max 90 Negro",
+    category: "nike",
+    gender: "hombre",
+    price: 180000,
+    image: "images/nike-air-max-90-negro.jpg",
+    sizes: ["38", "39", "40", "41", "42", "43"],
+    colors: ["Negro"]
+  },
+  {
+    id: "nike-sb-dunk-blanco",
+    name: "Nike SB Dunk Blanco",
+    category: "nike",
+    gender: "hombre",
+    price: 180000,
+    image: "images/nike-sb-dunk-blanco.jpg",
+    sizes: ["38", "39", "40", "41", "42", "43"],
+    colors: ["Blanco/Gum"]
+  },
+  {
+    id: "nike-tn-negro",
+    name: "Nike Air Max Plus TN Negro",
+    category: "nike",
+    gender: "hombre",
+    price: 180000,
+    image: "images/nike-tn-negro.jpg",
+    sizes: ["38", "39", "40", "41", "42", "43"],
+    colors: ["Negro"]
+  },
+  {
+    id: "nike-tn-blanco-azul",
+    name: "Nike Air Max Plus TN Blanco/Azul",
+    category: "nike",
+    gender: "mujer",
+    price: 180000,
+    image: "images/nike-tn-blanco-azul.jpg",
+    sizes: ["35", "36", "37", "38", "39", "40"],
+    colors: ["Blanco/Azul"]
+  },
+  {
+    id: "adidas-retro-beige-negro",
+    name: "Adidas Retro Beige/Negro",
+    category: "adidas",
+    gender: "hombre",
+    price: 150000,
+    image: "images/adidas-retro-beige-negro.jpg",
+    sizes: ["38", "39", "40", "41", "42", "43"],
+    colors: ["Beige/Negro"]
+  },
+  {
+    id: "nike-af1-blanco-classic",
+    name: "Nike Air Force 1 Clásico",
+    category: "nike",
+    gender: "mujer",
+    price: 180000,
+    image: "images/nike-af1-blanco-classic.jpg",
+    sizes: ["35", "36", "37", "38", "39", "40"],
+    colors: ["Blanco"]
+  },
+  {
+    id: "adidas-running-verde",
+    name: "Adidas Running Verde",
+    category: "adidas",
+    gender: "hombre",
+    price: 150000,
+    image: "images/adidas-running-verde.jpg",
+    sizes: ["38", "39", "40", "41", "42", "43"],
+    colors: ["Verde"]
+  },
+  {
+    id: "nike-af1-mid-negro",
+    name: "Nike Air Force 1 Mid Negro",
+    category: "nike",
+    gender: "mujer",
+    price: 180000,
+    image: "images/nike-af1-mid-negro.jpg",
+    sizes: ["35", "36", "37", "38", "39", "40"],
+    colors: ["Negro"]
+  },
+  {
+    id: "nike-air-zoom-negro-blanco",
+    name: "Nike Air Zoom Negro/Blanco",
+    category: "nike",
+    gender: "hombre",
+    price: 180000,
+    image: "images/nike-air-zoom-negro-blanco.jpg",
+    sizes: ["38", "39", "40", "41", "42", "43"],
+    colors: ["Negro/Blanco"]
+  },
+  {
+    id: "nike-af1-mid-blanco",
+    name: "Nike Air Force 1 Mid Blanco",
+    category: "nike",
+    gender: "hombre",
+    price: 180000,
+    image: "images/nike-af1-mid-blanco.jpg",
+    sizes: ["38", "39", "40", "41", "42", "43"],
+    colors: ["Blanco"]
+  },
+  {
+    id: "jordan4-blanco-crema",
+    name: "Jordan 4 Blanco/Crema",
+    category: "jordan",
+    gender: "mujer",
+    price: 200000,
+    image: "images/jordan4-blanco-crema.jpg",
+    sizes: ["35", "36", "37", "38", "39", "40"],
+    colors: ["Blanco/Crema"]
   }
 ];
 
@@ -609,7 +780,7 @@ function renderProducts() {
     card.innerHTML = `
       <div class="product-image"><img src="${p.image}" alt="${p.name}"></div>
       <div class="product-info">
-        <div class="product-tag">${p.category === "samba" ? "Samba" : "Superstar"}</div>
+        <div class="product-tag">${CATEGORY_LABELS[p.category] || p.category}</div>
         <div class="product-name">${p.name}</div>
         <div class="product-price">${formatPrice(p.price)}</div>
       </div>
